@@ -26,7 +26,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="MizJam1 - Copy"
+config/name="Miz Jam 1"
 run/main_scene="res://World/Scenes/World.tscn"
 
 [autoload]

@@ -19,13 +19,18 @@ func _ready():
 
 func _on_Area2D_input_event(_viewport, event, _shape_idx):
 	if event.is_action_pressed("left_click"):
+		print("character")
 		emit_signal("preview_moves",self)
+
+func pickable():
+	if find_node("Area2D"):
+		return area.input_pickable
+	else:
+		return false
 
 func ghost():
 	animPlayer.stop()
 	sprite.position = Vector2(8,6)
-	if find_node("Area2D"):
-		area.input_pickable = false
 	sprite.modulate = Color.gray
 	i = 0
 
@@ -36,6 +41,8 @@ func reset():
 	sprite.modulate = Color(1,1,1,1)
 
 func move(new_path):
+	if find_node("Area2D"):
+		area.input_pickable = false
 	path = new_path
 	move_along_path()
 
