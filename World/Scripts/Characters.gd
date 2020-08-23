@@ -2,9 +2,6 @@ extends TileMap
 
 var folder_path = "res://Characters/Scenes/"
 
-func _ready():
-	init()
-
 func init():
 	var used_cells = get_used_cells()
 	for i in used_cells.size():

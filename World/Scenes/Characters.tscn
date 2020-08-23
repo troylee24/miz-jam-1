@@ -4,11 +4,11 @@
 [ext_resource path="res://World/Scripts/Characters.gd" type="Script" id=2]
 
 [sub_resource type="TileSet" id=1]
-0/name = "Priest"
+0/name = "Warrior"
 0/texture = ExtResource( 1 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 384, 0, 16, 16 )
+0/region = Rect2( 496, 0, 16, 16 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
 0/navigation_offset = Vector2( 0, 0 )
@@ -32,11 +32,11 @@
 1/shape_one_way_margin = 0.0
 1/shapes = [  ]
 1/z_index = 0
-2/name = "Warrior"
+2/name = "King"
 2/texture = ExtResource( 1 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 496, 0, 16, 16 )
+2/region = Rect2( 448, 48, 16, 16 )
 2/tile_mode = 0
 2/occluder_offset = Vector2( 0, 0 )
 2/navigation_offset = Vector2( 0, 0 )

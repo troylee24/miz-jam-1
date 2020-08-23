@@ -21,6 +21,7 @@ func get_turn(value):
 		return "Player2"
 
 func change_turn():
+	get_tree().call_group(get_turn(turn),"ghost")
 	yield(get_tree().create_timer(0.5), "timeout")
 	if get_tree().get_nodes_in_group(get_turn(!turn)).size() == 0:
 		get_tree().call_group(get_turn(turn),"ghost")

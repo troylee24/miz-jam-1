@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://World/Scenes/Characters.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Scenes/Board.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Fonts/pixelmix.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://UI/arrow.png" type="Texture" id=4]
 [ext_resource path="res://UI/UI.gd" type="Script" id=5]
 [ext_resource path="res://Fonts/ARCADECLASSIC.TTF" type="DynamicFontData" id=6]
 [ext_resource path="res://World/Scripts/World.gd" type="Script" id=7]
+[ext_resource path="res://Tileset.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -18,7 +20,7 @@ outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 6 )
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 resource_name = "win"
 length = 4.0
 loop = true
@@ -47,7 +49,19 @@ tracks/1/keys = {
 "values": [ 0.0, -1.0, 0.0, 1.0 ]
 }
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="DynamicFont" id=5]
+size = 8
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 6
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 6
+font_data = ExtResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 2
 emission_box_extents = Vector3( 120, 1, 1 )
 flag_disable_z = true
@@ -68,7 +82,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="UI"]
+[node name="Background" type="ColorRect" parent="UI"]
 margin_right = 480.0
 margin_bottom = 272.0
 mouse_filter = 2
@@ -79,9 +93,11 @@ __meta__ = {
 
 [node name="Turns" type="HBoxContainer" parent="UI"]
 anchor_right = 1.0
+margin_left = -0.8
 margin_top = 8.0
-margin_right = 480.0
+margin_right = 479.2
 margin_bottom = 41.0
+rect_rotation = -0.1
 custom_constants/separation = -40
 __meta__ = {
 "_edit_group_": true,
@@ -143,18 +159,329 @@ align = 1
 valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="UI"]
-anims/win = SubResource( 4 )
+anims/win = SubResource( 3 )
+
+[node name="LeftSide" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 40.0
+margin_right = 104.0
+margin_bottom = 248.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/LeftSide"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/LeftSide/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBar" type="VBoxContainer" parent="UI/LeftSide/Panel/MarginContainer"]
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 187.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="UI/LeftSide/Panel/MarginContainer/SideBar"]
+margin_right = 64.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 5 )
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartButton" type="Button" parent="UI/LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 5 )
+text = "RESTART"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndTurnButton" type="Button" parent="UI/LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 48.0
+margin_right = 64.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 5 )
+disabled = true
+text = "END TURN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="UI/LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 72.0
+margin_right = 64.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 7 )
+text = "(Click to preview actions)
+
+(Move)
+move range
+
+(Attack)
+atk range
+
+(Target) valid atk"
+align = 1
+autowrap = true
+
+[node name="RightSide" type="ColorRect" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 376.0
+margin_top = 40.0
+margin_right = 456.0
+margin_bottom = 248.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UI/RightSide"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/RightSide/Panel"]
+margin_right = 64.0
+margin_bottom = 192.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBar" type="VBoxContainer" parent="UI/RightSide/Panel/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 59.0
+margin_bottom = 187.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="VBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar"]
+margin_right = 54.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Knight" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Knight"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 448, 0, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Knight"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Knight"
+align = 2
+valign = 1
+
+[node name="Warrior" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 23.0
+margin_right = 54.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Warrior"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 496, 0, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Warrior"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Warrior"
+align = 2
+valign = 1
+
+[node name="King" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 46.0
+margin_right = 54.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/King"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 448, 48, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/King"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "King"
+align = 2
+valign = 1
+
+[node name="Space" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 69.0
+margin_right = 54.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 92.0
+margin_right = 54.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Empty"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 624, 224, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Empty"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Empty"
+align = 2
+valign = 1
+
+[node name="Move" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 115.0
+margin_right = 54.0
+margin_bottom = 134.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Move"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 624, 240, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Move"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Move"
+align = 2
+valign = 1
+
+[node name="Attack" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 138.0
+margin_right = 54.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Attack"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 672, 208, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Attack"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Attack"
+align = 2
+valign = 1
+
+[node name="Target" type="HBoxContainer" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 161.0
+margin_right = 54.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Target"]
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 688, 192, 16, 16 )
+
+[node name="Label" type="Label" parent="UI/RightSide/Panel/MarginContainer/SideBar/Info/Target"]
+margin_right = 54.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Target"
+align = 2
+valign = 1
 
 [node name="Board" parent="." instance=ExtResource( 2 )]
-tile_data = PoolIntArray( 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 524298, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 589834, 0, 0, 589837, 0, 0, 589838, 0, 0, 589839, 0, 0, 589842, 0, 0, 589843, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655379, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0 )
+tile_data = PoolIntArray( 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 262160, 0, 0, 262162, 0, 0, 262163, 0, 0, 262164, 0, 0, 262165, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327700, 0, 0, 327701, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 458767, 0, 0, 458768, 0, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 524297, 0, 0, 524298, 0, 0, 524299, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 524304, 0, 0, 524305, 0, 0, 524306, 0, 0, 524307, 0, 0, 524308, 0, 0, 524309, 0, 0, 589833, 0, 0, 589834, 0, 0, 589835, 0, 0, 589838, 0, 0, 589839, 0, 0, 589840, 0, 0, 589843, 0, 0, 589844, 0, 0, 589845, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 0, 0, 655375, 0, 0, 655378, 0, 0, 655379, 0, 0, 655380, 0, 0, 655381, 0, 0, 720906, 0, 0, 720907, 0, 0, 720908, 0, 0, 720909, 0, 0, 720910, 0, 0, 720911, 0, 0, 720913, 0, 0, 720914, 0, 0, 720915, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 0, 0, 786443, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786449, 0, 0, 786450, 0, 0, 786451, 0, 0, 786452, 0, 0, 786453, 0, 0, 851976, 0, 0, 851977, 0, 0, 851978, 0, 0, 851979, 0, 0, 851982, 0, 0, 851983, 0, 0, 851984, 0, 0, 851985, 0, 0, 851986, 0, 0, 851987, 0, 0, 851988, 0, 0, 851989, 0, 0, 917513, 0, 0, 917514, 0, 0, 917522, 0, 0, 917523, 0, 0, 917524, 0, 0 )
 
 [node name="Player1" parent="Board" instance=ExtResource( 1 )]
 modulate = Color( 0, 0.67, 1, 1 )
-tile_data = PoolIntArray( 393229, 1, 0, 458766, 2, 0, 524301, 1, 0 )
+tile_data = PoolIntArray( 196616, 0, 0, 196617, 0, 0, 196618, 1, 0, 196619, 1, 0, 262152, 0, 0, 262153, 2, 0, 262154, 1, 0, 262155, 1, 0, 327689, 1, 0, 327690, 1, 0, 327694, 1, 0, 393225, 1, 0, 393226, 1, 0, 589835, 1, 0 )
 
 [node name="Player2" parent="Board" instance=ExtResource( 1 )]
 modulate = Color( 1, 0.270588, 0.270588, 1 )
-tile_data = PoolIntArray( 458767, 2, 0 )
+tile_data = PoolIntArray( 524306, 1, 0, 720911, 1, 0, 720915, 1, 0, 786450, 1, 0, 786451, 1, 0, 786452, 1, 0, 786453, 1, 0, 851986, 1, 0, 851987, 1, 0, 851988, 2, 0, 851989, 0, 0, 917522, 1, 0, 917523, 0, 0, 917524, 0, 0 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 position = Vector2( 240, 0 )
@@ -163,4 +490,7 @@ emitting = false
 amount = 200
 lifetime = 8.0
 visibility_rect = Rect2( -120, -20, 240, 20 )
-process_material = SubResource( 3 )
+process_material = SubResource( 4 )
+[connection signal="pressed" from="UI/LeftSide/Panel/MarginContainer/SideBar/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="pressed" from="UI/LeftSide/Panel/MarginContainer/SideBar/RestartButton" to="." method="_on_RestartButton_pressed"]
+[connection signal="pressed" from="UI/LeftSide/Panel/MarginContainer/SideBar/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]

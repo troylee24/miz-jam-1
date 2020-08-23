@@ -24,6 +24,7 @@ var att
 var curr
 
 func _ready():
+	Master.connect("win",self,"win")
 	animPlayer.play("idle")
 
 func color_init(skin):
@@ -98,3 +99,6 @@ func take_damage(damage):
 
 func die():
 	queue_free()
+
+func win():
+	animPlayer.play("win")

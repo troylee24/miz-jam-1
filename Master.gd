@@ -17,8 +17,12 @@ func play_sound(sound):
 	match sound:
 		"background":
 			path = "res://Sounds/theme-6.ogg"
-			volume = -11
+			volume = -15
 			audio.connect("finished",self,"play_sound",["background"])
+		"game":
+			path = "res://Sounds/theme-2.ogg"
+			volume = -10
+			audio.connect("finished",self,"play_sound",["game"])
 		"move":
 			path = "res://Sounds/chess_move.wav"
 			volume = -5
@@ -34,6 +38,7 @@ func play_sound(sound):
 			audio.connect("finished",self,"play_sound",["end"])
 		"end":
 			emit_signal("win")
+			set_process_input(false)
 			path = "res://Sounds/theme-4.ogg"
 			volume = -10
 			audio.connect("finished",self,"play_sound",["end"])
