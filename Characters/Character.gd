@@ -61,6 +61,7 @@ func move_along_path():
 		start_tween(moveTween,global_position,path[i],speed)
 	else:
 		Master.emit_signal("preview_attacks",true)
+		Master.moving = false
 
 func _on_MoveTween_completed(_object, _key):
 	Master.play_sound("move")

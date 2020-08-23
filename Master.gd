@@ -6,8 +6,14 @@ signal move_finished
 signal change_turn
 signal win
 
-func _ready():
-	play_sound("background")
+var scene = 2
+var moving = false
+
+func switch_scene():
+	get_tree().change_scene("res://World/Scenes/World" + str(scene) + ".tscn")
+	scene += 1
+	if scene > 5:
+		scene = 1
 
 func play_sound(sound):
 	var audio = AudioStreamPlayer.new()
@@ -36,9 +42,9 @@ func play_sound(sound):
 			path = "res://Sounds/victory.wav"
 			volume = -10
 			audio.connect("finished",self,"play_sound",["end"])
+			set_process_input(false)
 		"end":
 			emit_signal("win")
-			set_process_input(false)
 			path = "res://Sounds/theme-4.ogg"
 			volume = -10
 			audio.connect("finished",self,"play_sound",["end"])

@@ -24,6 +24,7 @@ func change_turn():
 	get_tree().call_group(get_turn(turn),"ghost")
 	yield(get_tree().create_timer(0.5), "timeout")
 	if get_tree().get_nodes_in_group(get_turn(!turn)).size() == 0:
+		get_parent().endTurnButton.disabled = true
 		get_tree().call_group(get_turn(turn),"ghost")
 		Master.stop_sound()
 		yield(get_tree().create_timer(0.25), "timeout")
@@ -65,6 +66,7 @@ func action(new_pos = null):
 					node.ghost()
 					move_finished()
 				else:
+					Master.moving = true
 					var new_path = convert_path(path(node_pos,new_pos))
 					node.move(new_path)
 					get_tree().call_group(get_turn(turn),"disable_collision",true,node)
