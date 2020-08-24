@@ -20,4 +20,3 @@ func lighten(label,turn):
 		label.modulate = Color(1,1,1,1)
 	else:
 		label.modulate = Color(1,1,1,0.5)
-		

@@ -1,0 +1,455 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://UI/UI.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/ARCADECLASSIC.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://Tileset.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/pixelmix.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://UI/arrow.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "win"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Turns:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 8 ), Vector2( -8, 8 ), Vector2( 0, 8 ), Vector2( 8, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Turns:rect_rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, -1.0, 0.0, 1.0 ]
+}
+
+[sub_resource type="DynamicFont" id=4]
+size = 8
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 6
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 6
+font_data = ExtResource( 4 )
+
+[node name="UI" type="Control"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 480.0
+margin_bottom = 272.0
+mouse_filter = 2
+color = Color( 0.698039, 0.509804, 0.372549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Turns" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_top = 8.0
+margin_right = 480.0
+margin_bottom = 41.0
+custom_constants/separation = -40
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Player1" type="Label" parent="Turns"]
+margin_top = 8.0
+margin_right = 244.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 0, 0.529412, 1, 1 )
+text = "Player 1"
+align = 1
+valign = 1
+
+[node name="Turn" type="Label" parent="Turns"]
+margin_left = 204.0
+margin_right = 276.0
+margin_bottom = 33.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "TURN"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftArrow" type="TextureRect" parent="Turns/Turn"]
+margin_left = -36.0
+margin_right = -4.0
+margin_bottom = 33.0
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightArrow" type="TextureRect" parent="Turns/Turn"]
+margin_left = 76.0
+margin_right = 108.0
+margin_bottom = 33.0
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="Player2" type="Label" parent="Turns"]
+margin_left = 236.0
+margin_top = 8.0
+margin_right = 480.0
+margin_bottom = 25.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 0.231373, 0.231373, 1 )
+text = "Player 2"
+align = 1
+valign = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/win = SubResource( 3 )
+
+[node name="LeftSide" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 24.0
+margin_top = 40.0
+margin_right = 104.0
+margin_bottom = 248.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="LeftSide"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="LeftSide/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_top = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBar" type="VBoxContainer" parent="LeftSide/Panel/MarginContainer"]
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 187.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="LeftSide/Panel/MarginContainer/SideBar"]
+margin_right = 64.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 4 )
+text = "START"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartButton" type="Button" parent="LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 4 )
+text = "RESTART"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndTurnButton" type="Button" parent="LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 48.0
+margin_right = 64.0
+margin_bottom = 62.0
+custom_fonts/font = SubResource( 4 )
+disabled = true
+text = "END TURN"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="Label" parent="LeftSide/Panel/MarginContainer/SideBar"]
+margin_top = 72.0
+margin_right = 64.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 5 )
+text = "(Click to preview actions)
+
+(Move)
+move range
+
+(Attack)
+atk range
+
+(Target)
+valid atk"
+align = 1
+autowrap = true
+
+[node name="RightSide" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 376.0
+margin_top = 40.0
+margin_right = 456.0
+margin_bottom = 248.0
+color = Color( 0.14902, 0.14902, 0.14902, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="RightSide"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 72.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="RightSide/Panel"]
+margin_right = 64.0
+margin_bottom = 192.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 5
+custom_constants/margin_left = 5
+custom_constants/margin_bottom = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SideBar" type="VBoxContainer" parent="RightSide/Panel/MarginContainer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 59.0
+margin_bottom = 187.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Info" type="VBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar"]
+margin_right = 54.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Knight" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Knight"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 448, 0, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Knight"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Knight"
+align = 2
+valign = 1
+
+[node name="Warrior" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 23.0
+margin_right = 54.0
+margin_bottom = 42.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Warrior"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 496, 0, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Warrior"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Warrior"
+align = 2
+valign = 1
+
+[node name="King" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 46.0
+margin_right = 54.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/King"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 448, 48, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/King"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "King"
+align = 2
+valign = 1
+
+[node name="Space" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 69.0
+margin_right = 54.0
+margin_bottom = 88.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Empty" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 92.0
+margin_right = 54.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Empty"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 624, 224, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Empty"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Empty"
+align = 2
+valign = 1
+
+[node name="Move" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 115.0
+margin_right = 54.0
+margin_bottom = 134.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Move"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 624, 240, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Move"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Move"
+align = 2
+valign = 1
+
+[node name="Attack" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 138.0
+margin_right = 54.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Attack"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 672, 208, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Attack"]
+margin_right = 54.0
+margin_bottom = 19.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Attack"
+align = 2
+valign = 1
+
+[node name="Target" type="HBoxContainer" parent="RightSide/Panel/MarginContainer/SideBar/Info"]
+margin_top = 161.0
+margin_right = 54.0
+margin_bottom = 182.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Sprite" type="Sprite" parent="RightSide/Panel/MarginContainer/SideBar/Info/Target"]
+texture = ExtResource( 3 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 688, 192, 16, 16 )
+
+[node name="Label" type="Label" parent="RightSide/Panel/MarginContainer/SideBar/Info/Target"]
+margin_right = 54.0
+margin_bottom = 21.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 6 )
+text = "Target"
+align = 2
+valign = 1
+[connection signal="pressed" from="LeftSide/Panel/MarginContainer/SideBar/StartButton" to="." method="_on_StartButton_pressed"]
